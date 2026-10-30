@@ -1,7 +1,6 @@
 package board
 
 import (
-	"fmt"
 	"math/bits"
 )
 
