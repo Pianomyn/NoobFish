@@ -25,7 +25,7 @@ func GetRayAttacks(ray board.Bitboard, allRays []board.Bitboard, friends board.B
 		first = 63 - bits.LeadingZeros64(uint64(blockers))
 	}
 
-	return ray ^ allRays[first] &^ friends
+	return (ray ^ allRays[first]) &^ friends
 }
 
 type BishopRays struct {
