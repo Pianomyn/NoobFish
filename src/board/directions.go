@@ -1,4 +1,4 @@
-package movement_utility
+package board
 
 const (
 	N  int8 = 8

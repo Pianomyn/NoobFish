@@ -65,19 +65,19 @@ func GetBishopAttackRays() board.BishopRays {
 		sw := currentBit
 		for ne != 0 || nw != 0 || se != 0 || sw != 0 {
 			if ne != 0 {
-				ne = (ne << movement_utility.NE) & board.NotFileAMask
+				ne = (ne << board.NE) & board.NotFileAMask
 				rays.NE[i] |= ne
 			}
 			if nw != 0 {
-				nw = (nw << movement_utility.NW) & board.NotFileHMask
+				nw = (nw << board.NW) & board.NotFileHMask
 				rays.NW[i] |= nw
 			}
 			if se != 0 {
-				se = (se >> -movement_utility.SE) & board.NotFileAMask
+				se = (se >> -board.SE) & board.NotFileAMask
 				rays.SE[i] |= se
 			}
 			if sw != 0 {
-				sw = (sw >> -movement_utility.SW) & board.NotFileHMask
+				sw = (sw >> -board.SW) & board.NotFileHMask
 				rays.SW[i] |= sw
 			}
 		}

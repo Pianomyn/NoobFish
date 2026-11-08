@@ -51,14 +51,14 @@ func GetKingAttackTable() []board.Bitboard {
 	for i := range kingAttacks {
 		bit := board.Bitboard(1) << i
 
-		kingAttacks[i] |= (bit & board.NotRank8Mask) << (movement_utility.N)
-		kingAttacks[i] |= (bit & board.NotFileHMask & board.NotRank8Mask) << (movement_utility.NE)
-		kingAttacks[i] |= (bit & board.NotFileHMask) << (movement_utility.E)
-		kingAttacks[i] |= (bit & board.NotFileHMask & board.NotRank1Mask) >> (-movement_utility.SE)
-		kingAttacks[i] |= (bit & board.NotRank1Mask) >> (-movement_utility.S)
-		kingAttacks[i] |= (bit & board.NotFileAMask & board.NotRank1Mask) >> (-movement_utility.SW)
-		kingAttacks[i] |= (bit & board.NotFileAMask) >> (-movement_utility.W)
-		kingAttacks[i] |= (bit & board.NotFileAMask & board.NotRank8Mask) << (movement_utility.NW)
+		kingAttacks[i] |= (bit & board.NotRank8Mask) << (board.N)
+		kingAttacks[i] |= (bit & board.NotFileHMask & board.NotRank8Mask) << (board.NE)
+		kingAttacks[i] |= (bit & board.NotFileHMask) << (board.E)
+		kingAttacks[i] |= (bit & board.NotFileHMask & board.NotRank1Mask) >> (-board.SE)
+		kingAttacks[i] |= (bit & board.NotRank1Mask) >> (-board.S)
+		kingAttacks[i] |= (bit & board.NotFileAMask & board.NotRank1Mask) >> (-board.SW)
+		kingAttacks[i] |= (bit & board.NotFileAMask) >> (-board.W)
+		kingAttacks[i] |= (bit & board.NotFileAMask & board.NotRank8Mask) << (board.NW)
 	}
 
 	return kingAttacks

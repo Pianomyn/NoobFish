@@ -37,16 +37,16 @@ func GetKnightAttackTable() []board.Bitboard {
 	for i := range knightAttacks {
 		bit := board.Bitboard(1) << i
 
-		knightAttacks[i] |= (bit & board.NotFileABMask) << movement_utility.NoWeWe
-		knightAttacks[i] |= (bit & board.NotFileAMask) << movement_utility.NoNoWe
-		knightAttacks[i] |= (bit & board.NotFileGHMask) << movement_utility.NoEaEa
-		knightAttacks[i] |= (bit & board.NotFileHMask) << movement_utility.NoNoEa
+		knightAttacks[i] |= (bit & board.NotFileABMask) << board.NoWeWe
+		knightAttacks[i] |= (bit & board.NotFileAMask) << board.NoNoWe
+		knightAttacks[i] |= (bit & board.NotFileGHMask) << board.NoEaEa
+		knightAttacks[i] |= (bit & board.NotFileHMask) << board.NoNoEa
 
 		// Cant negative bitshift
-		knightAttacks[i] |= (bit & board.NotFileABMask) >> (-movement_utility.SoWeWe)
-		knightAttacks[i] |= (bit & board.NotFileAMask) >> (-movement_utility.SoSoWe)
-		knightAttacks[i] |= (bit & board.NotFileGHMask) >> (-movement_utility.SoEaEa)
-		knightAttacks[i] |= (bit & board.NotFileHMask) >> (-movement_utility.SoSoEa)
+		knightAttacks[i] |= (bit & board.NotFileABMask) >> (-board.SoWeWe)
+		knightAttacks[i] |= (bit & board.NotFileAMask) >> (-board.SoSoWe)
+		knightAttacks[i] |= (bit & board.NotFileGHMask) >> (-board.SoEaEa)
+		knightAttacks[i] |= (bit & board.NotFileHMask) >> (-board.SoSoEa)
 	}
 
 	return knightAttacks

@@ -2,7 +2,6 @@ package movement
 
 import (
 	"chessgo/board"
-	"chessgo/movement/movement_utility"
 )
 
 func GetPawnPushTable(side board.Side) []board.Bitboard {
@@ -13,17 +12,17 @@ func GetPawnPushTable(side board.Side) []board.Bitboard {
 			if currentBit&(board.Rank1Mask|board.Rank8Mask) != 0 {
 				continue
 			} else if currentBit&board.Rank2Mask != 0 {
-				pushes[i] |= currentBit<<movement_utility.N | currentBit<<(movement_utility.N*2)
+				pushes[i] |= currentBit<<board.N | currentBit<<(board.N*2)
 			} else {
-				pushes[i] |= currentBit << movement_utility.N
+				pushes[i] |= currentBit << board.N
 			}
 		} else {
 			if currentBit&(board.Rank1Mask|board.Rank8Mask) != 0 {
 				continue
 			} else if currentBit&board.Rank7Mask != 0 {
-				pushes[i] |= currentBit>>-movement_utility.S | currentBit>>-(movement_utility.S*2)
+				pushes[i] |= currentBit>>-board.S | currentBit>>-(board.S*2)
 			} else {
-				pushes[i] |= currentBit >> -movement_utility.S
+				pushes[i] |= currentBit >> -board.S
 			}
 		}
 	}
@@ -38,21 +37,21 @@ func GetPawnAttackTable(side board.Side) []board.Bitboard {
 			if currentBit&(board.Rank1Mask|board.Rank8Mask) != 0 {
 				continue
 			} else if currentBit&board.FileAMask != 0 {
-				attacks[i] |= currentBit << movement_utility.NE
+				attacks[i] |= currentBit << board.NE
 			} else if currentBit&board.FileHMask != 0 {
-				attacks[i] |= currentBit << movement_utility.NW
+				attacks[i] |= currentBit << board.NW
 			} else {
-				attacks[i] |= currentBit<<movement_utility.NE | currentBit<<movement_utility.NW
+				attacks[i] |= currentBit<<board.NE | currentBit<<board.NW
 			}
 		} else {
 			if currentBit&(board.Rank1Mask|board.Rank8Mask) != 0 {
 				continue
 			} else if currentBit&board.FileAMask != 0 {
-				attacks[i] |= currentBit >> -movement_utility.SE
+				attacks[i] |= currentBit >> -board.SE
 			} else if currentBit&board.FileHMask != 0 {
-				attacks[i] |= currentBit >> -movement_utility.SW
+				attacks[i] |= currentBit >> -board.SW
 			} else {
-				attacks[i] |= currentBit>>-movement_utility.SE | currentBit>>-movement_utility.SW
+				attacks[i] |= currentBit>>-board.SE | currentBit>>-board.SW
 			}
 		}
 	}
