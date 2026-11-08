@@ -1,4 +1,4 @@
-package movement
+package attacks
 
 import (
 	"noobfish/board"

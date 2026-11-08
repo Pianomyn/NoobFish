@@ -72,20 +72,6 @@ type CastlingRights struct {
 	BlackQueenside bool
 }
 
-type BishopRays struct {
-	NE []Bitboard
-	NW []Bitboard
-	SE []Bitboard
-	SW []Bitboard
-}
-
-type RookRays struct {
-	North []Bitboard
-	East []Bitboard
-	South []Bitboard
-	West []Bitboard
-}
-
 type ChessBoard struct {
 	Pieces  [2][6]Bitboard    // Piece to square
 	Mailbox [64]ColouredPiece // Square to piece

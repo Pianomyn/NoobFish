@@ -1,6 +1,8 @@
-package movement
+package attacks
 
-import "noobfish/board"
+import (
+	"noobfish/board"
+)
 
 func GetQueenAttackTable() []board.Bitboard {
 	queenAttacks := make([]board.Bitboard, 64)

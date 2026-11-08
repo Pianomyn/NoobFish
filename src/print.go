@@ -3,7 +3,7 @@ package main
 
 import (
 	"noobfish/board"
-	"noobfish/movement"
+	"noobfish/attacks"
 	"fmt"
 )
 
@@ -35,15 +35,15 @@ func PrintAllMoves(piece board.Piece) {
 	var allMoves []board.Bitboard
 	switch piece {
 	case board.King:
-		allMoves = movement.GetKingAttackTable()
+		allMoves = attacks.GetKingAttackTable()
 	case board.Knight:
-		allMoves = movement.GetKnightAttackTable()
+		allMoves = attacks.GetKnightAttackTable()
 	case board.Rook:
-		allMoves = movement.GetRookAttackTable()
+		allMoves = attacks.GetRookAttackTable()
 	case board.Bishop:
-		allMoves = movement.GetBishopAttackTable()
+		allMoves = attacks.GetBishopAttackTable()
 	case board.Queen:
-		allMoves = movement.GetQueenAttackTable()
+		allMoves = attacks.GetQueenAttackTable()
 	default:
 		panic("Invalid Piece")
 	}

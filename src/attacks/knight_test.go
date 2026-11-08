@@ -1,21 +1,23 @@
-package movement
+package attacks
 
 import (
-	"noobfish/board"
 	"math/bits"
+	"noobfish/board"
 	"testing"
 )
 
-func TestKingAttackCounts(t *testing.T) {
-	table := GetKingAttackTable()
+func TestKnightAttackCounts(t *testing.T) {
+	table := GetKnightAttackTable()
+
 	tests := []struct {
 		name     string
 		square   board.Square
 		expected int
 	}{
-
-		{"Corner (A1)", board.A1, 3},
-		{"Edge (A2)", board.A2, 5},
+		{"Corner (A1)", board.A1, 2},
+		{"Edge (A2)", board.A2, 3},
+		{"Near Edge (B2)", board.B2, 4},
+		{"Outer Ring (C2)", board.C2, 6},
 		{"Center (D4)", board.D4, 8},
 	}
 
@@ -27,18 +29,18 @@ func TestKingAttackCounts(t *testing.T) {
 	}
 }
 
-func TestKingWrapArounds(t *testing.T) {
-	table := GetKingAttackTable()
+func TestKnightWrapArounds(t *testing.T) {
+	table := GetKnightAttackTable()
 
 	tests := []struct {
 		name           string
 		square         board.Square
 		forbiddenMasks board.Bitboard
 	}{
-		{"A1", board.A1, board.FileHMask},
-		{"A4", board.A4, board.FileHMask},
-		{"H1", board.H1, board.FileAMask},
-		{"H8", board.H8, board.FileAMask},
+		{"A1", board.A1, board.FileGMask | board.FileHMask},
+		{"B1", board.B1, board.FileHMask},
+		{"H8", board.H8, board.FileAMask | board.FileBMask},
+		{"G8", board.G8, board.FileAMask},
 	}
 
 	for _, tt := range tests {

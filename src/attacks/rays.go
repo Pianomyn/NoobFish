@@ -27,3 +27,18 @@ func RayMoves(ray board.Bitboard, allRays []board.Bitboard, occupied board.Bitbo
 
 	return ray ^ allRays[first]
 }
+
+type BishopRays struct {
+	NE []board.Bitboard
+	NW []board.Bitboard
+	SE []board.Bitboard
+	SW []board.Bitboard
+}
+
+type RookRays struct {
+	North []board.Bitboard
+	East []board.Bitboard
+	South []board.Bitboard
+	West []board.Bitboard
+}
+
