@@ -1,14 +1,13 @@
 package movement
 
 import (
+	"chessgo/attacks"
 	"chessgo/board"
-	"chessgo/movement/movement_utility"
 )
 
-
-func GetBishopMoves(cb *board.ChessBoard) []movement_utility.Move {
+func GetBishopMoves(cb *board.ChessBoard) []Move {
 	rays := GetBishopAttackRays()
-	var moves []movement_utility.Move
+	var moves []Move
 	bishops := cb.Pieces[cb.SideToMove][board.Bishop]
 	friends := cb.Colours[cb.SideToMove]
 	occupied := cb.Occupied
@@ -16,16 +15,16 @@ func GetBishopMoves(cb *board.ChessBoard) []movement_utility.Move {
 	for bishops != 0 {
 		source := board.GetNextPieceSquare(&bishops)
 
-		targets := movement_utility.RayMoves(rays.NE[source], rays.NE, occupied, true) |
-			movement_utility.RayMoves(rays.NW[source], rays.NW, occupied, true) |
-			movement_utility.RayMoves(rays.SE[source], rays.SE, occupied, false) |
-			movement_utility.RayMoves(rays.SW[source], rays.SW, occupied, false)
+		targets := attacks.RayMoves(rays.NE[source], rays.NE, occupied, true) |
+			attacks.RayMoves(rays.NW[source], rays.NW, occupied, true) |
+			attacks.RayMoves(rays.SE[source], rays.SE, occupied, false) |
+			attacks.RayMoves(rays.SW[source], rays.SW, occupied, false)
 
 		targets &^= friends
 
 		for targets != 0 {
 			target := board.GetNextPieceSquare(&targets)
-			moves = append(moves, movement_utility.Move{
+			moves = append(moves, Move{
 				Source:        source,
 				Target:        target,
 				SourcePiece:   board.PieceToColouredPiece(board.Bishop, cb.SideToMove),
@@ -36,7 +35,6 @@ func GetBishopMoves(cb *board.ChessBoard) []movement_utility.Move {
 
 	return moves
 }
-
 
 func GetBishopAttackTable() []board.Bitboard {
 	attacks := make([]board.Bitboard, 64)

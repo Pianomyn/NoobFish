@@ -1,4 +1,4 @@
-package movement_utility
+package attacks
 
 import (
 	"chessgo/board"
@@ -26,21 +26,4 @@ func RayMoves(ray board.Bitboard, allRays []board.Bitboard, occupied board.Bitbo
 	}
 
 	return ray ^ allRays[first]
-}
-
-type MoveFlags struct {
-	DoublePush  bool
-	EnPassant   bool
-	CastleKing  bool
-	CastleQueen bool
-	Promotion   bool
-}
-
-type Move struct {
-	Source        board.Square
-	Target        board.Square
-	SourcePiece   board.ColouredPiece
-	CapturedPiece board.ColouredPiece
-	PromotionTo   board.Piece
-	Flags         MoveFlags
 }

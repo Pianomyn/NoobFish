@@ -2,11 +2,10 @@ package movement
 
 import (
 	"chessgo/board"
-	"chessgo/movement/movement_utility"
 )
 
-func GetKnightMoves(cb *board.ChessBoard) []movement_utility.Move {
-	var moves []movement_utility.Move
+func GetKnightMoves(cb *board.ChessBoard) []Move {
+	var moves []Move
 	attackTable := GetKnightAttackTable()
 
 	knights := cb.Pieces[cb.SideToMove][board.Knight]
@@ -20,7 +19,7 @@ func GetKnightMoves(cb *board.ChessBoard) []movement_utility.Move {
 			target := board.GetNextPieceSquare(&moveBitboard)
 			moves = append(
 				moves,
-				movement_utility.Move{
+				Move{
 					Source:        source,
 					Target:        target,
 					SourcePiece:   board.PieceToColouredPiece(board.Knight, cb.SideToMove),
