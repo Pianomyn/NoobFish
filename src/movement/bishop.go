@@ -6,7 +6,7 @@ import (
 )
 
 func GetBishopMoves(cb *board.ChessBoard) []Move {
-	rays := attacks.GetBishopAttackRays()
+	rays := attacks.BishopAttackRays
 	var moves []Move
 	bishops := cb.Pieces[cb.SideToMove][board.Bishop]
 	friends := cb.Colours[cb.SideToMove]

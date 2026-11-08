@@ -7,7 +7,7 @@ import (
 )
 
 func GetKingMoves(cb *board.ChessBoard) []Move {
-	attackTable := attacks.GetKingAttackTable()
+	attackTable := attacks.KingAttackTable
 	var moves []Move
 
 	source := board.Square(bits.TrailingZeros64(uint64(cb.Pieces[cb.SideToMove][board.King])))

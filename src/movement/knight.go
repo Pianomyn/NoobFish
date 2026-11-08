@@ -7,7 +7,7 @@ import (
 
 func GetKnightMoves(cb *board.ChessBoard) []Move {
 	var moves []Move
-	attackTable := attacks.GetKnightAttackTable()
+	attackTable := attacks.KnightAttackTable
 
 	knights := cb.Pieces[cb.SideToMove][board.Knight]
 

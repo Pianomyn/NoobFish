@@ -26,7 +26,7 @@ func buildChessBoard(start board.Square, context moveTest, sideToMove board.Side
 }
 
 func TestBishopMovesBlockers(t *testing.T) {
-	rays := attacks.GetBishopAttackRays()
+	rays := attacks.BishopAttackRays
 	start := board.Square(board.C4)
 
 	fullRay := rays.NE[start] | rays.NW[start] | rays.SE[start] | rays.SW[start]
@@ -106,7 +106,7 @@ func TestBishopMovesBlockers(t *testing.T) {
 }
 
 func TestBishopMovesNoBlockers(t *testing.T) {
-	rays := attacks.GetBishopAttackRays()
+	rays := attacks.BishopAttackRays
 	start := board.Square(board.C4)
 	fullRay := rays.NE[start] | rays.NW[start] | rays.SE[start] | rays.SW[start]
 
