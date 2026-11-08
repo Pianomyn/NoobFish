@@ -1,7 +1,7 @@
 package movement
 
 import (
-	"chessgo/board"
+	"noobfish/board"
 )
 
 func GetKnightMoves(cb *board.ChessBoard) []Move {
@@ -14,7 +14,7 @@ func GetKnightMoves(cb *board.ChessBoard) []Move {
 		source := board.GetNextPieceSquare(&knights)
 
 		moveBitboard := attackTable[source] &^ cb.Colours[cb.SideToMove]
-		
+
 		for moveBitboard != 0 {
 			target := board.GetNextPieceSquare(&moveBitboard)
 			moves = append(

@@ -1,7 +1,7 @@
 package attacks
 
 import (
-	"chessgo/board"
+	"noobfish/board"
 	"math/bits"
 )
 

@@ -1,8 +1,8 @@
 package movement
 
 import (
-	"chessgo/attacks"
-	"chessgo/board"
+	"noobfish/attacks"
+	"noobfish/board"
 )
 
 func GetBishopMoves(cb *board.ChessBoard) []Move {
@@ -35,7 +35,6 @@ func GetBishopMoves(cb *board.ChessBoard) []Move {
 
 	return moves
 }
-
 func GetBishopAttackTable() []board.Bitboard {
 	attacks := make([]board.Bitboard, 64)
 	rays := GetBishopAttackRays()
@@ -82,3 +81,4 @@ func GetBishopAttackRays() board.BishopRays {
 	}
 	return rays
 }
+

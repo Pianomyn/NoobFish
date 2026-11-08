@@ -2,8 +2,8 @@
 package main
 
 import (
-	"chessgo/board"
-	"chessgo/movement"
+	"noobfish/board"
+	"noobfish/movement"
 	"fmt"
 )
 

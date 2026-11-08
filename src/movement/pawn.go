@@ -1,7 +1,7 @@
 package movement
 
 import (
-	"chessgo/board"
+	"noobfish/board"
 )
 
 func GetPawnPushTable(side board.Side) []board.Bitboard {

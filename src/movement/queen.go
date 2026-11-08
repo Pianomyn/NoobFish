@@ -1,6 +1,6 @@
 package movement
 
-import "chessgo/board"
+import "noobfish/board"
 
 func GetQueenAttackTable() []board.Bitboard {
 	queenAttacks := make([]board.Bitboard, 64)

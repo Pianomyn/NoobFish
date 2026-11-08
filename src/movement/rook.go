@@ -1,6 +1,6 @@
 package movement
 
-import "chessgo/board"
+import "noobfish/board"
 
 
 func GetRookMoves(cb *board.ChessBoard) []board.Bitboard {

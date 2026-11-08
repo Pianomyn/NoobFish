@@ -1,7 +1,7 @@
 package main
 
 import (
-	"chessgo/board"
+	"noobfish/board"
 )
 
 func main() {
