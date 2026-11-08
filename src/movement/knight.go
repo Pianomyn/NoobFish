@@ -5,8 +5,8 @@ import (
 	"noobfish/board"
 )
 
-func GetKnightMoves(cb *board.ChessBoard) []Move {
-	var moves []Move
+func GetKnightMoves(cb *board.ChessBoard) []board.Move {
+	var moves []board.Move
 	attackTable := attacks.KnightAttackTable
 
 	knights := cb.Pieces[cb.SideToMove][board.Knight]
@@ -20,7 +20,7 @@ func GetKnightMoves(cb *board.ChessBoard) []Move {
 			target := board.GetNextPieceSquare(&moveBitboard)
 			moves = append(
 				moves,
-				Move{
+				board.Move{
 					Source:        source,
 					Target:        target,
 					SourcePiece:   board.PieceToColouredPiece(board.Knight, cb.SideToMove),

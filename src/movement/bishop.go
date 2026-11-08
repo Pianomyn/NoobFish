@@ -5,9 +5,9 @@ import (
 	"noobfish/board"
 )
 
-func GetBishopMoves(cb *board.ChessBoard) []Move {
+func GetBishopMoves(cb *board.ChessBoard) []board.Move {
 	rays := attacks.BishopAttackRays
-	var moves []Move
+	var moves []board.Move
 	bishops := cb.Pieces[cb.SideToMove][board.Bishop]
 	friends := cb.Colours[cb.SideToMove]
 	occupied := cb.Occupied
@@ -22,7 +22,7 @@ func GetBishopMoves(cb *board.ChessBoard) []Move {
 
 		for targets != 0 {
 			target := board.GetNextPieceSquare(&targets)
-			moves = append(moves, Move{
+			moves = append(moves, board.Move{
 				Source:        source,
 				Target:        target,
 				SourcePiece:   board.PieceToColouredPiece(board.Bishop, cb.SideToMove),

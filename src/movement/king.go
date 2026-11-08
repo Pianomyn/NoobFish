@@ -6,9 +6,9 @@ import (
 	"noobfish/board"
 )
 
-func GetKingMoves(cb *board.ChessBoard) []Move {
+func GetKingMoves(cb *board.ChessBoard) []board.Move {
 	attackTable := attacks.KingAttackTable
-	var moves []Move
+	var moves []board.Move
 
 	source := board.Square(bits.TrailingZeros64(uint64(cb.Pieces[cb.SideToMove][board.King])))
 	targets := attackTable[source] &^ cb.Colours[cb.SideToMove]
@@ -17,12 +17,12 @@ func GetKingMoves(cb *board.ChessBoard) []Move {
 	for targets != 0 {
 		target := board.GetNextPieceSquare(&targets)
 		targetPiece := cb.Mailbox[target]
-		moves = append(moves, Move{
+		moves = append(moves, board.Move{
 			Source:        source,
 			Target:        target,
 			SourcePiece:   colouredKing,
 			CapturedPiece: targetPiece,
-			Flags:         MoveFlags{},
+			Flags:         board.MoveFlags{},
 		})
 	}
 
