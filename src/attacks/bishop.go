@@ -4,14 +4,6 @@ import (
 	"noobfish/board"
 )
 
-func GetBishopAttackTable() []board.Bitboard {
-	attacks := make([]board.Bitboard, 64)
-	for i := range attacks {
-		attacks[i] = BishopAttackRays.NE[i] | BishopAttackRays.NW[i] | BishopAttackRays.SE[i] | BishopAttackRays.SW[i]
-	}
-	return attacks
-}
-
 func GetBishopAttackRays() BishopRays {
 	// Individual rays instead of combined so can use lsb/msb per dir
 	// O(n^2), could optimize

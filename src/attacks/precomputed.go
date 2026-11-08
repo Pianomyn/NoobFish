@@ -6,7 +6,6 @@ import (
 
 var (
 	BishopAttackRays BishopRays
-	BishopAttackTable []board.Bitboard
 	KingAttackTable []board.Bitboard
 	KnightAttackTable []board.Bitboard
 	PawnBlackAttackTable []board.Bitboard
@@ -17,7 +16,6 @@ var (
 
 func init() {
 	BishopAttackRays = GetBishopAttackRays()
-	BishopAttackTable = GetBishopAttackTable()
 	KingAttackTable = GetKingAttackTable()
 	KnightAttackTable = GetKnightAttackTable()
 	PawnBlackAttackTable = GetPawnAttackTable(board.Black)
