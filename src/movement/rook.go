@@ -2,6 +2,11 @@ package movement
 
 import "chessgo/board"
 
+
+func GetRookMoves(cb *board.ChessBoard) []board.Bitboard {
+	return make([]board.Bitboard, 64)
+}
+
 func GetRookAttackTable() []board.Bitboard {
 	orthogonal := make([]board.Bitboard, 64)
 

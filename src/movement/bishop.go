@@ -5,12 +5,6 @@ import (
 	"chessgo/movement/movement_utility"
 )
 
-type BishopRays struct {
-	NE []board.Bitboard
-	NW []board.Bitboard
-	SE []board.Bitboard
-	SW []board.Bitboard
-}
 
 func GetBishopMoves(cb *board.ChessBoard) []movement_utility.Move {
 	rays := GetBishopAttackRays()
@@ -53,10 +47,10 @@ func GetBishopAttackTable() []board.Bitboard {
 	return attacks
 }
 
-func GetBishopAttackRays() BishopRays {
+func GetBishopAttackRays() board.BishopRays {
 	// Individual rays instead of combined so can use lsb/msb per dir
 	// O(n^2), could optimize
-	rays := BishopRays{
+	rays := board.BishopRays{
 		NE: make([]board.Bitboard, 64),
 		NW: make([]board.Bitboard, 64),
 		SE: make([]board.Bitboard, 64),
