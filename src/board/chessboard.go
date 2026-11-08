@@ -76,8 +76,6 @@ type ChessBoard struct {
 	Pieces  [2][6]Bitboard    // Piece to square
 	Mailbox [64]ColouredPiece // Square to piece
 
-	RookRays [64]Bitboard
-
 	Colours         [2]Bitboard
 	Occupied        Bitboard
 	SideToMove      Side

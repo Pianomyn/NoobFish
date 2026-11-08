@@ -39,9 +39,9 @@ func PrintAllMoves(piece board.Piece) {
 	case board.Knight:
 		allMoves = attacks.KnightAttackTable
 	case board.Rook:
-		allMoves = attacks.RookAttackTable
+		allMoves = attacks.RookAttackRays.ToAttackTable()
 	case board.Bishop:
-		allMoves = attacks.BishopAttackTable
+		allMoves = attacks.BishopAttackRays.ToAttackTable()
 	case board.Queen:
 		allMoves = attacks.QueenAttackTable
 	default:

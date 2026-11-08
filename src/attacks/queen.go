@@ -6,15 +6,19 @@ import (
 
 func GetQueenAttackTable() []board.Bitboard {
 	queenAttacks := make([]board.Bitboard, 64)
-	rookAttacks := GetRookAttackTable()
-	bishopAttacks := GetBishopAttackRays()
+	rookAttackRays := GetRookAttackRays()
+	bishopAttackRays := GetBishopAttackRays()
 	for i := range queenAttacks {
-		bishopAttacks := bishopAttacks.NE[i] |
-			bishopAttacks.NW[i] |
-			bishopAttacks.SW[i] |
-			bishopAttacks.SE[i]
+		bishopAttacks := bishopAttackRays.NE[i] |
+			bishopAttackRays.NW[i] |
+			bishopAttackRays.SW[i] |
+			bishopAttackRays.SE[i]
+		rookAttacks := rookAttackRays.North[i] |
+			rookAttackRays.East[i] |
+			rookAttackRays.South[i] |
+			rookAttackRays.West[i]
 
-		queenAttacks[i] = bishopAttacks | rookAttacks[i]
+		queenAttacks[i] = bishopAttacks | rookAttacks
 	}
 	return queenAttacks
 }

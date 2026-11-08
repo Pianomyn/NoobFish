@@ -5,7 +5,7 @@ import (
 	"math/bits"
 )
 
-func RayMoves(ray board.Bitboard, allRays []board.Bitboard, occupied board.Bitboard, positive bool) board.Bitboard {
+func GetRayAttacks(ray board.Bitboard, allRays []board.Bitboard, friends board.Bitboard, occupied board.Bitboard, positive bool) board.Bitboard {
 	/*
 		For diagonal rays:
 			positive = top left and top right
@@ -25,7 +25,7 @@ func RayMoves(ray board.Bitboard, allRays []board.Bitboard, occupied board.Bitbo
 		first = 63 - bits.LeadingZeros64(uint64(blockers))
 	}
 
-	return ray ^ allRays[first]
+	return ray ^ allRays[first] &^ friends
 }
 
 type BishopRays struct {
@@ -42,3 +42,18 @@ type RookRays struct {
 	West []board.Bitboard
 }
 
+func (br BishopRays) ToAttackTable() []board.Bitboard {
+	attackTable := make([]board.Bitboard, 64)
+	for i := range 64 {
+		attackTable[i] = br.NE[i] | br.NW[i] | br.SE[i] | br.SW[i]
+	}
+	return attackTable
+}
+
+func (rr RookRays) ToAttackTable() []board.Bitboard {
+	attackTable := make([]board.Bitboard, 64)
+	for i := range 64 {
+		attackTable[i] = rr.North[i] | rr.East[i] | rr.South[i] | rr.West[i]
+	}
+	return attackTable
+}

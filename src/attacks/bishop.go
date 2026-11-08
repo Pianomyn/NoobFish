@@ -15,30 +15,24 @@ func GetBishopAttackRays() BishopRays {
 	}
 
 	for i := range 64 {
-		currentBit := board.Bitboard(1) << i
-		ne := currentBit
-		nw := currentBit
-		se := currentBit
-		sw := currentBit
-		for ne != 0 || nw != 0 || se != 0 || sw != 0 {
-			if ne != 0 {
-				ne = (ne << board.NE) & board.NotFileAMask
-				rays.NE[i] |= ne
+		row := i / 8
+		col := i % 8
+
+		for offset := 1; offset < 8; offset++ {
+			if r, c := row+offset, col+offset; r < 8 && c < 8 {
+				rays.NE[i] |= board.Bitboard(1<<(r*8 + c))
 			}
-			if nw != 0 {
-				nw = (nw << board.NW) & board.NotFileHMask
-				rays.NW[i] |= nw
+			if r, c := row+offset, col-offset; r < 8 && c > -1 {
+				rays.NW[i] |= board.Bitboard(1<<(r*8 + c))
 			}
-			if se != 0 {
-				se = (se >> -board.SE) & board.NotFileAMask
-				rays.SE[i] |= se
+			if r, c := row-offset, col+offset; r > -1 && c < 8 {
+				rays.SE[i] |= board.Bitboard(1<<(r*8 + c))
 			}
-			if sw != 0 {
-				sw = (sw >> -board.SW) & board.NotFileHMask
-				rays.SW[i] |= sw
+			if r, c := row-offset, col-offset; r > -1 && c > -1 {
+				rays.SW[i] |= board.Bitboard(1<<(r*8 + c))
 			}
+
 		}
 	}
 	return rays
 }
-

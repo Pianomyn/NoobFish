@@ -29,20 +29,20 @@ func TestBishopMovesBlockers(t *testing.T) {
 	rays := attacks.BishopAttackRays
 	start := board.Square(board.C4)
 
-	fullRay := rays.NE[start] | rays.NW[start] | rays.SE[start] | rays.SW[start]
+	fullRay := rays.ToAttackTable()[start]
 
 	tests := []moveTest{
 		{
 			name:            "NE - Friend at D5 blocks entire ray",
 			friendlies:      board.Bitboard(0).Set(board.D5),
 			enemies:         board.Bitboard(0),
-			expectedTargets: fullRay &^ rays.NE[start],
+			expectedTargets: fullRay ^ rays.NE[start],
 		},
 		{
 			name:            "NE - Enemy at D5 allows capture only",
 			friendlies:      board.Bitboard(0),
 			enemies:         board.Bitboard(0).Set(board.D5),
-			expectedTargets: fullRay&^rays.NE[start] | board.Bitboard(0).Set(board.D5),
+			expectedTargets: fullRay^rays.NE[start] | board.Bitboard(0).Set(board.D5),
 		},
 		{
 			name:            "NE - Friend at E6 allows D5 only",
@@ -106,9 +106,9 @@ func TestBishopMovesBlockers(t *testing.T) {
 }
 
 func TestBishopMovesNoBlockers(t *testing.T) {
-	rays := attacks.BishopAttackRays
+	rays := attacks.GetBishopAttackRays()
 	start := board.Square(board.C4)
-	fullRay := rays.NE[start] | rays.NW[start] | rays.SE[start] | rays.SW[start]
+	fullRay := rays.ToAttackTable()[start]
 
 	tests := []moveTest{
 		{
