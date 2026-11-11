@@ -6,5 +6,5 @@ import (
 
 func main() {
 	//movement.PrintAllMoves(board.King)
-	PrintAllMoves(board.Bishop)
+	PrintAllMoves(board.Rook)
 }

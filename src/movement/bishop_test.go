@@ -6,14 +6,14 @@ import (
 	"testing"
 )
 
-type moveTest struct {
+type bishopMoveTest struct {
 	name            string
 	friendlies      board.Bitboard
 	enemies         board.Bitboard
 	expectedTargets board.Bitboard
 }
 
-func buildChessBoard(start board.Square, context moveTest, sideToMove board.Side) *board.ChessBoard {
+func buildChessBoardForBishop(start board.Square, context bishopMoveTest, sideToMove board.Side) *board.ChessBoard {
 	enemySide := sideToMove ^ 1
 	cb := &board.ChessBoard{SideToMove: sideToMove}
 	cb.Pieces[sideToMove][board.Bishop] = board.Bitboard(0).Set(start)
@@ -31,7 +31,7 @@ func TestBishopMovesBlockers(t *testing.T) {
 
 	fullRay := rays.ToAttackTable()[start]
 
-	tests := []moveTest{
+	tests := []bishopMoveTest{
 		{
 			name:            "NE - Friend at D5 blocks entire ray",
 			friendlies:      board.Bitboard(0).Set(board.D5),
@@ -90,7 +90,7 @@ func TestBishopMovesBlockers(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cb := buildChessBoard(start, tt, board.White)
+			cb := buildChessBoardForBishop(start, tt, board.White)
 			moves := GetBishopMoves(cb)
 
 			var gotTargets board.Bitboard
@@ -110,7 +110,7 @@ func TestBishopMovesNoBlockers(t *testing.T) {
 	start := board.Square(board.C4)
 	fullRay := rays.ToAttackTable()[start]
 
-	tests := []moveTest{
+	tests := []bishopMoveTest{
 		{
 			name:            "Empty Board",
 			friendlies:      board.Bitboard(0),
@@ -119,21 +119,21 @@ func TestBishopMovesNoBlockers(t *testing.T) {
 		},
 		{
 			name:            "Unreachable - All Friends",
-			friendlies:      ^fullRay &^ board.Bitboard(0).Set(start),
+			friendlies:      ^fullRay,
 			enemies:         board.Bitboard(0),
 			expectedTargets: fullRay,
 		},
 		{
 			name:            "Unreachable - All Enemies",
 			friendlies:      board.Bitboard(0),
-			enemies:         ^fullRay &^ board.Bitboard(0).Set(start),
+			enemies:         ^fullRay,
 			expectedTargets: fullRay,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cb := buildChessBoard(start, tt, board.White)
+			cb := buildChessBoardForBishop(start, tt, board.White)
 			moves := GetBishopMoves(cb)
 
 			var gotTargets board.Bitboard
