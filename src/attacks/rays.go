@@ -1,8 +1,8 @@
 package attacks
 
 import (
-	"noobfish/board"
 	"math/bits"
+	"noobfish/board"
 )
 
 func GetRayAttacks(ray board.Bitboard, allRays []board.Bitboard, friends board.Bitboard, occupied board.Bitboard, positive bool) board.Bitboard {
@@ -21,7 +21,6 @@ func GetRayAttacks(ray board.Bitboard, allRays []board.Bitboard, friends board.B
 	if positive {
 		first = bits.TrailingZeros64(uint64(blockers))
 	} else {
-		// Counting from MSB downwards, flip/convert to get Little-Endian bit
 		first = 63 - bits.LeadingZeros64(uint64(blockers))
 	}
 
@@ -37,9 +36,9 @@ type BishopRays struct {
 
 type RookRays struct {
 	North []board.Bitboard
-	East []board.Bitboard
+	East  []board.Bitboard
 	South []board.Bitboard
-	West []board.Bitboard
+	West  []board.Bitboard
 }
 
 func (br BishopRays) ToAttackTable() []board.Bitboard {
