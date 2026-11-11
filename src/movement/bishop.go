@@ -15,10 +15,12 @@ func GetBishopMoves(cb *board.ChessBoard) []board.Move {
 	for bishops != 0 {
 		source := board.GetNextPieceSquare(&bishops)
 
-		targets := attacks.GetRayAttacks(source, rays.NE, friends, occupied, true) |
-			attacks.GetRayAttacks(source, rays.NW, friends, occupied, true) |
-			attacks.GetRayAttacks(source, rays.SE, friends, occupied, false) |
-			attacks.GetRayAttacks(source, rays.SW, friends, occupied, false)
+		targets := attacks.GetRayAttacks(source, rays.NE, occupied, true) |
+			attacks.GetRayAttacks(source, rays.NW, occupied, true) |
+			attacks.GetRayAttacks(source, rays.SE, occupied, false) |
+			attacks.GetRayAttacks(source, rays.SW, occupied, false)
+
+		targets &^= friends
 
 		for targets != 0 {
 			target := board.GetNextPieceSquare(&targets)

@@ -15,10 +15,12 @@ func GetRookMoves(cb *board.ChessBoard) []board.Move {
 	for rooks != 0 {
 		source := board.GetNextPieceSquare(&rooks)
 
-		targets := attacks.GetRayAttacks(source, rays.North, friends, occupied, true) |
-			attacks.GetRayAttacks(source, rays.East, friends, occupied, true) |
-			attacks.GetRayAttacks(source, rays.South, friends, occupied, false) |
-			attacks.GetRayAttacks(source, rays.West, friends, occupied, false)
+		targets := attacks.GetRayAttacks(source, rays.North, occupied, true) |
+			attacks.GetRayAttacks(source, rays.East, occupied, true) |
+			attacks.GetRayAttacks(source, rays.South, occupied, false) |
+			attacks.GetRayAttacks(source, rays.West, occupied, false)
+
+		targets &^= friends
 
 		for targets != 0 {
 			target := board.GetNextPieceSquare(&targets)

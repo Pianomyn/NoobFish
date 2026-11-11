@@ -5,7 +5,7 @@ import (
 	"noobfish/board"
 )
 
-func GetRayAttacks(source board.Square, allRays []board.Bitboard, friends board.Bitboard, occupied board.Bitboard, positive bool) board.Bitboard {
+func GetRayAttacks(source board.Square, allRays []board.Bitboard, occupied board.Bitboard, positive bool) board.Bitboard {
 	/*
 		For diagonal rays:
 			positive = top left and top right
@@ -25,7 +25,7 @@ func GetRayAttacks(source board.Square, allRays []board.Bitboard, friends board.
 		first = 63 - bits.LeadingZeros64(uint64(blockers))
 	}
 
-	return (ray ^ allRays[first]) &^ friends
+	return ray ^ allRays[first]
 }
 
 type BishopRays struct {

@@ -16,14 +16,16 @@ func GetQueenMoves(cb *board.ChessBoard) []board.Move {
 	for queens != 0 {
 		source := board.GetNextPieceSquare(&queens)
 
-		targets := attacks.GetRayAttacks(source, bishopRays.NE, friends, occupied, true) |
-			attacks.GetRayAttacks(source, bishopRays.NW, friends, occupied, true) |
-			attacks.GetRayAttacks(source, bishopRays.SE, friends, occupied, false) |
-			attacks.GetRayAttacks(source, bishopRays.SW, friends, occupied, false) |
-			attacks.GetRayAttacks(source, rookRays.North, friends, occupied, true) |
-			attacks.GetRayAttacks(source, rookRays.East, friends, occupied, true) |
-			attacks.GetRayAttacks(source, rookRays.South, friends, occupied, false) |
-			attacks.GetRayAttacks(source, rookRays.West, friends, occupied, false)
+		targets := attacks.GetRayAttacks(source, bishopRays.NE, occupied, true) |
+			attacks.GetRayAttacks(source, bishopRays.NW, occupied, true) |
+			attacks.GetRayAttacks(source, bishopRays.SE, occupied, false) |
+			attacks.GetRayAttacks(source, bishopRays.SW, occupied, false) |
+			attacks.GetRayAttacks(source, rookRays.North, occupied, true) |
+			attacks.GetRayAttacks(source, rookRays.East, occupied, true) |
+			attacks.GetRayAttacks(source, rookRays.South, occupied, false) |
+			attacks.GetRayAttacks(source, rookRays.West, occupied, false)
+
+		targets &^= friends
 
 		for targets != 0 {
 			target := board.GetNextPieceSquare(&targets)
