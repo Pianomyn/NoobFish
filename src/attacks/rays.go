@@ -5,13 +5,14 @@ import (
 	"noobfish/board"
 )
 
-func GetRayAttacks(ray board.Bitboard, allRays []board.Bitboard, friends board.Bitboard, occupied board.Bitboard, positive bool) board.Bitboard {
+func GetRayAttacks(source board.Square, allRays []board.Bitboard, friends board.Bitboard, occupied board.Bitboard, positive bool) board.Bitboard {
 	/*
 		For diagonal rays:
 			positive = top left and top right
 		For orthogonal rays:
 			positive = top and right
 	*/
+	ray := allRays[source]
 	blockers := ray & occupied
 	if blockers == 0 {
 		return ray
