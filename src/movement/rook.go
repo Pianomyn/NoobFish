@@ -7,7 +7,7 @@ import (
 
 func GetRookMoves(cb *board.ChessBoard) []board.Move {
 	rays := attacks.RookAttackRays
-	var moves []board.Move
+	moves := make([]board.Move, 0, 64)
 	rooks := cb.Pieces[cb.SideToMove][board.Rook]
 	friends := cb.Colours[cb.SideToMove]
 	occupied := cb.Occupied

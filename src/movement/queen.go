@@ -8,7 +8,7 @@ import (
 func GetQueenMoves(cb *board.ChessBoard) []board.Move {
 	bishopRays := attacks.BishopAttackRays
 	rookRays := attacks.RookAttackRays
-	var moves []board.Move
+	moves := make([]board.Move, 0, 64)
 	queens := cb.Pieces[cb.SideToMove][board.Queen]
 	friends := cb.Colours[cb.SideToMove]
 	occupied := cb.Occupied
