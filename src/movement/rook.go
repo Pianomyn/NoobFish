@@ -1,7 +1,35 @@
 package movement
 
-import "noobfish/board"
+import (
+	"noobfish/board"
+	"noobfish/attacks"
+)
 
-func GetRookMoves(cb *board.ChessBoard) []board.Bitboard {
-	return make([]board.Bitboard, 64)
+func GetRookMoves(cb *board.ChessBoard) []board.Move {
+	rays := attacks.RookAttackRays
+	var moves []board.Move
+	rooks := cb.Pieces[cb.SideToMove][board.Rook]
+	friends := cb.Colours[cb.SideToMove]
+	occupied := cb.Occupied
+
+	for rooks != 0 {
+		source := board.GetNextPieceSquare(&rooks)
+
+		targets := attacks.GetRayAttacks(rays.North[source], rays.North, friends, occupied, true) |
+			attacks.GetRayAttacks(rays.East[source], rays.East, friends, occupied, true) |
+			attacks.GetRayAttacks(rays.South[source], rays.South, friends, occupied, false) |
+			attacks.GetRayAttacks(rays.West[source], rays.West, friends, occupied, false)
+
+		for targets != 0 {
+			target := board.GetNextPieceSquare(&targets)
+			moves = append(moves, board.Move{
+				Source:        source,
+				Target:        target,
+				SourcePiece:   board.PieceToColouredPiece(board.Rook, cb.SideToMove),
+				CapturedPiece: cb.Mailbox[target],
+			})
+		}
+	}
+
+	return moves
 }
