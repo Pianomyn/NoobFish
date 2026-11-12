@@ -2,6 +2,7 @@ package board
 
 import (
 	"math/bits"
+	//"fmt"
 )
 
 type Side uint8
@@ -20,8 +21,8 @@ func (s Side) String() string {
 	return "Black"
 }
 
-func (cb *ChessBoard) changeSideToMove() {
-	cb.SideToMove ^= 1
+func GetOtherSide(currentSide Side) Side {
+	return currentSide ^ 1
 }
 
 const (
@@ -52,6 +53,13 @@ const (
 
 func PieceToColouredPiece(p Piece, s Side) ColouredPiece {
 	return ColouredPiece(6*uint8(s) + uint8(p))
+}
+
+func ColouredPieceToPiece(p ColouredPiece) Piece {
+	if p < 6 {
+		return Piece(p)
+	}
+	return Piece(p - 6)
 }
 
 func (c Piece) String() string {
@@ -122,6 +130,33 @@ func NewChessBoard() *ChessBoard {
 	cb.Sync()
 	return cb
 }
+
+/*
+func (cb *ChessBoard) Capture(source Square, destination Square) {
+	sourcePiece := cb.Mailbox[source]
+	destinationPiece := cb.Mailbox[destination]
+	sourceBit := 1 << source
+	destinationBit := 1 << destination
+
+	if sourcePiece == NoColouredPiece {
+		panic(fmt.Sprintf("Oh no! Captured called / Mailbox out of sync. source=%v destination=%v", source, destination))
+	}
+
+	// Update pieces
+	//cb.Pieces[sideToMove][]
+
+	// Update colours
+
+	// Update occupied
+
+	// Update mailbox
+	cb.Mailbox[destination] = sourcePiece
+	cb.Mailbox[source] = NoColouredPiece
+
+
+
+}
+*/
 
 func (cb *ChessBoard) Sync() {
 	cb.Colours[White] = 0

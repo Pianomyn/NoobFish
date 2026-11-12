@@ -4,6 +4,20 @@ import (
 	"noobfish/board"
 )
 
+func GetPawnAttackTables() [2][]board.Bitboard {
+	var table [2][]board.Bitboard
+	table[board.White] = GetPawnAttackTable(board.White)
+	table[board.Black] = GetPawnAttackTable(board.Black)
+	return table
+}
+
+func GetPawnPushTables() [2][]board.Bitboard {
+	var table [2][]board.Bitboard
+	table[board.White] = GetPawnPushTable(board.White)
+	table[board.Black] = GetPawnPushTable(board.Black)
+	return table
+}
+
 func GetPawnPushTable(side board.Side) []board.Bitboard {
 	pushes := make([]board.Bitboard, 64)
 	for i := range pushes {

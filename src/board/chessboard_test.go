@@ -77,3 +77,62 @@ func TestSyncBasic(t *testing.T) {
 		t.Errorf("Occupied bitboard incorrect")
 	}
 }
+
+func TestPieceToColouredPiece(t *testing.T) {
+	cases := []struct {
+		piece    Piece
+		side     Side
+		expected ColouredPiece
+	}{
+		{Pawn, White, WhitePawn},
+		{Pawn, Black, BlackPawn},
+		{Rook, White, WhiteRook},
+		{Rook, Black, BlackRook},
+		{Knight, White, WhiteKnight},
+		{Knight, Black, BlackKnight},
+		{Bishop, White, WhiteBishop},
+		{Bishop, Black, BlackBishop},
+		{King, White, WhiteKing},
+		{King, Black, BlackKing},
+		{Queen, White, WhiteQueen},
+		{Queen, Black, BlackQueen},
+	}
+
+	for _, c := range cases {
+		t.Run(fmt.Sprintf("Piece to Coloured Piece %v %v", c.side, c.piece), func(t *testing.T) {
+			colouredPiece := PieceToColouredPiece(c.piece, c.side)
+			if colouredPiece != c.expected {
+				t.Errorf("Expected %v, got %v", c.expected, colouredPiece)
+			}
+		})
+	}
+}
+
+func TestColouredPieceToPiece(t *testing.T) {
+	cases := []struct {
+		expected      Piece
+		colouredPiece ColouredPiece
+	}{
+		{Pawn, WhitePawn},
+		{Pawn, BlackPawn},
+		{Rook, WhiteRook},
+		{Rook, BlackRook},
+		{Knight, WhiteKnight},
+		{Knight, BlackKnight},
+		{Bishop, WhiteBishop},
+		{Bishop, BlackBishop},
+		{King, WhiteKing},
+		{King, BlackKing},
+		{Queen, WhiteQueen},
+		{Queen, BlackQueen},
+	}
+	for _, c := range cases {
+		t.Run(fmt.Sprintf("Coloured Piece to Piece %v %v", c.colouredPiece, c.expected), func(t *testing.T) {
+			piece := ColouredPieceToPiece(c.colouredPiece)
+			if piece != c.expected {
+				t.Errorf("Expected %v, got %v", c.expected, piece)
+			}
+		})
+	}
+
+}
