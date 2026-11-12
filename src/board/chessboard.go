@@ -2,7 +2,7 @@ package board
 
 import (
 	"math/bits"
-	//"fmt"
+	"fmt"
 )
 
 type Side uint8
@@ -52,10 +52,12 @@ const (
 )
 
 func PieceToColouredPiece(p Piece, s Side) ColouredPiece {
+	if p == NoPiece {return NoColouredPiece}
 	return ColouredPiece(6*uint8(s) + uint8(p))
 }
 
 func ColouredPieceToPiece(p ColouredPiece) Piece {
+	if p == NoColouredPiece {return NoPiece}
 	if p < 6 {
 		return Piece(p)
 	}
@@ -131,32 +133,39 @@ func NewChessBoard() *ChessBoard {
 	return cb
 }
 
-/*
 func (cb *ChessBoard) Capture(source Square, destination Square) {
-	sourcePiece := cb.Mailbox[source]
-	destinationPiece := cb.Mailbox[destination]
-	sourceBit := 1 << source
-	destinationBit := 1 << destination
+	sourceColouredPiece := cb.Mailbox[source]
+	destinationColouredPiece := cb.Mailbox[destination]
 
-	if sourcePiece == NoColouredPiece {
+	if sourceColouredPiece == NoColouredPiece {
 		panic(fmt.Sprintf("Oh no! Captured called / Mailbox out of sync. source=%v destination=%v", source, destination))
 	}
 
+	sourcePiece := ColouredPieceToPiece(sourceColouredPiece)
+	destinationPiece := ColouredPieceToPiece(destinationColouredPiece)
+	sideToMove := cb.SideToMove
+	otherSide := GetOtherSide(sideToMove)
+
+
 	// Update pieces
-	//cb.Pieces[sideToMove][]
+	cb.Pieces[sideToMove][sourcePiece].Clear(source)
+	cb.Pieces[sideToMove][sourcePiece].Set(destination)
+	if destinationColouredPiece != NoColouredPiece {
+		cb.Pieces[otherSide][destinationPiece].Clear(destination)
+	}
 
 	// Update colours
+	cb.Colours[sideToMove].Clear(source)
+	cb.Colours[sideToMove].Set(destination)
+	cb.Colours[otherSide].Clear(destination)
 
 	// Update occupied
+	cb.Occupied = cb.Colours[sideToMove] | cb.Colours[otherSide]
 
 	// Update mailbox
-	cb.Mailbox[destination] = sourcePiece
+	cb.Mailbox[destination] = sourceColouredPiece
 	cb.Mailbox[source] = NoColouredPiece
-
-
-
 }
-*/
 
 func (cb *ChessBoard) Sync() {
 	cb.Colours[White] = 0

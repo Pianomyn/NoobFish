@@ -96,6 +96,8 @@ func TestPieceToColouredPiece(t *testing.T) {
 		{King, Black, BlackKing},
 		{Queen, White, WhiteQueen},
 		{Queen, Black, BlackQueen},
+		{NoPiece, White, NoColouredPiece},
+		{NoPiece, Black, NoColouredPiece},
 	}
 
 	for _, c := range cases {
@@ -125,6 +127,7 @@ func TestColouredPieceToPiece(t *testing.T) {
 		{King, BlackKing},
 		{Queen, WhiteQueen},
 		{Queen, BlackQueen},
+		{NoPiece, NoColouredPiece},
 	}
 	for _, c := range cases {
 		t.Run(fmt.Sprintf("Coloured Piece to Piece %v %v", c.colouredPiece, c.expected), func(t *testing.T) {
