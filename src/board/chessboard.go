@@ -157,7 +157,7 @@ func (cb *ChessBoard) Capture(source Square, destination Square) {
 	}
 
 	// Update colours
-	cb.Colours[sideToMove] = cb.Colours[sideToMove].Clear(source).Clear(destination)
+	cb.Colours[sideToMove] = cb.Colours[sideToMove].Clear(source).Set(destination)
 	cb.Colours[otherSide] = cb.Colours[otherSide].Clear(destination)
 
 	// Update occupied

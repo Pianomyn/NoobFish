@@ -78,6 +78,7 @@ func TestSyncBasic(t *testing.T) {
 	}
 }
 
+// Piece to Coloured Piece and vice versa
 func TestPieceToColouredPiece(t *testing.T) {
 	cases := []struct {
 		piece    Piece
@@ -138,4 +139,43 @@ func TestColouredPieceToPiece(t *testing.T) {
 		})
 	}
 
+}
+
+
+
+// Capture tests
+func assertInSync(t *testing.T, cb *ChessBoard) {
+	t.Helper()
+	want := *cb
+	want.Sync()
+	if cb.Colours != want.Colours {
+		t.Errorf("Colours out of sync:\n got  %v\n want %v", cb.Colours, want.Colours)
+	}
+	if cb.Occupied != want.Occupied {
+		t.Errorf("Occupied out of sync:\n got\n%v want\n%v", cb.Occupied, want.Occupied)
+	}
+	if cb.Mailbox != want.Mailbox {
+		t.Errorf("Mailbox out of sync")
+	}
+}
+
+func TestCaptureQuietMove(t *testing.T) {
+	cb := NewChessBoard()
+	cb.Capture(E2, E4)
+	assertInSync(t, cb)
+}
+
+func TestCaptureTakesPiece(t *testing.T) {
+	cb := NewChessBoard()
+	cb.Capture(E2, E4)
+	cb.Capture(E4, E5)
+	cb.Capture(E5, E6)
+	cb.Capture(E6, D7) // white pawn takes the black pawn on D7
+	assertInSync(t, cb)
+	if cb.Pieces[Black][Pawn].Get(D7) {
+		t.Errorf("black pawn on D7 should be gone")
+	}
+	if !cb.Pieces[White][Pawn].Get(D7) {
+		t.Errorf("white pawn should be on D7")
+	}
 }
