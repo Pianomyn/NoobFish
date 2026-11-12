@@ -1,8 +1,8 @@
 package board
 
 import (
-	"math/bits"
 	"fmt"
+	"math/bits"
 )
 
 type Side uint8
@@ -52,12 +52,16 @@ const (
 )
 
 func PieceToColouredPiece(p Piece, s Side) ColouredPiece {
-	if p == NoPiece {return NoColouredPiece}
+	if p == NoPiece {
+		return NoColouredPiece
+	}
 	return ColouredPiece(6*uint8(s) + uint8(p))
 }
 
 func ColouredPieceToPiece(p ColouredPiece) Piece {
-	if p == NoColouredPiece {return NoPiece}
+	if p == NoColouredPiece {
+		return NoPiece
+	}
 	if p < 6 {
 		return Piece(p)
 	}
@@ -146,18 +150,15 @@ func (cb *ChessBoard) Capture(source Square, destination Square) {
 	sideToMove := cb.SideToMove
 	otherSide := GetOtherSide(sideToMove)
 
-
 	// Update pieces
-	cb.Pieces[sideToMove][sourcePiece].Clear(source)
-	cb.Pieces[sideToMove][sourcePiece].Set(destination)
+	cb.Pieces[sideToMove][sourcePiece] = cb.Pieces[sideToMove][sourcePiece].Clear(source).Set(destination)
 	if destinationColouredPiece != NoColouredPiece {
-		cb.Pieces[otherSide][destinationPiece].Clear(destination)
+		cb.Pieces[otherSide][destinationPiece] = cb.Pieces[otherSide][destinationPiece].Clear(destination)
 	}
 
 	// Update colours
-	cb.Colours[sideToMove].Clear(source)
-	cb.Colours[sideToMove].Set(destination)
-	cb.Colours[otherSide].Clear(destination)
+	cb.Colours[sideToMove] = cb.Colours[sideToMove].Clear(source).Clear(destination)
+	cb.Colours[otherSide] = cb.Colours[otherSide].Clear(destination)
 
 	// Update occupied
 	cb.Occupied = cb.Colours[sideToMove] | cb.Colours[otherSide]
