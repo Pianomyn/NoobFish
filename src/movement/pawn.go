@@ -6,6 +6,7 @@ import (
 )
 
 func GetPawnMoves(cb *board.ChessBoard) []board.Move {
+	moves := make([]board.Move, 64)
 	sideToMove := cb.SideToMove
 	takes := attacks.PawnAttackTables
 	pushes := attacks.PawnPushTables
@@ -13,17 +14,41 @@ func GetPawnMoves(cb *board.ChessBoard) []board.Move {
 	pawns := cb.Pieces[sideToMove][board.Pawn]
 
 	for pawns > 0 {
-		current := board.GetNextPieceSquare(&pawns)
-		currentBit := 1 << current
+		source := board.GetNextPieceSquare(&pawns)
 
-		targets := pushes[sideToMove][currentBit] | (takes[sideToMove][currentBit] & cb.Colours[board.GetOtherSide(sideToMove)])
+		targets := pushes[sideToMove][source] | (takes[sideToMove][source] & cb.Colours[board.GetOtherSide(sideToMove)])
 
 		for targets > 0 {
-			// TODO
-			targets--
+			target := board.GetNextPieceSquare(&targets)
+			moves = append(moves, board.Move{
+				Source:        source,
+				Target:        target,
+				SourcePiece:   cb.Mailbox[source],
+				CapturedPiece: cb.Mailbox[target],
+			})
 
 		}
-	}
-	return []board.Move{}
+		if cb.EnPassantSquare != board.NoSquare {
+			if attacks.PawnAttackTables[cb.SideToMove][source]&
+				board.Bitboard(uint64(cb.EnPassantSquare)) != 0 {
+				var capturedPieceSquare board.Square
 
+				// Safe, won't be out of bounds in standard chess
+				if cb.SideToMove == board.White {
+					capturedPieceSquare = board.Square(int8(cb.EnPassantSquare) + board.S)
+				} else {
+					capturedPieceSquare = board.Square(int8(cb.EnPassantSquare) + board.N)
+				}
+
+				moves = append(moves, board.Move{
+					Source:        source,
+					Target:        cb.EnPassantSquare,
+					SourcePiece:   cb.Mailbox[source],
+					CapturedPiece: cb.Mailbox[capturedPieceSquare],
+				})
+
+			}
+		}
+	}
+	return moves
 }
